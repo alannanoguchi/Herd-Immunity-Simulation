@@ -9,9 +9,7 @@ class Simulation(object):
     ''' Main class that will run the herd immunity simulation program.
     Expects initialization parameters passed as command line arguments when file is run.
 
-    Simulates the spread of a virus through a given population.  The percentage of the
-    population that are vaccinated, the size of the population, and the amount of initially
-    infected people in a population are all variables that can be set when the program is run.
+    Simulates the spread of a virus through a given population.  The percentage of the population that are vaccinated, the size of the population, and the amount of initially infected people in a population are all variables that can be set when the program is run.
     '''
     def __init__(self, pop_size, vacc_percentage, initial_infected=1, virus):
         ''' Logger object logger records all events during the simulation.
@@ -21,10 +19,8 @@ class Simulation(object):
         The vaccination percentage represents the total percentage of population
         vaccinated at the start of the simulation.
         You will need to keep track of the number of people currently infected with the disease.
-        The total infected people is the running total that have been infected since the
-        simulation began, including the currently infected people who died.
-        You will also need to keep track of the number of people that have die as a result
-        of the infection.
+        The total infected people is the running total that have been infected since the simulation began, including the currently infected people who died.
+        You will also need to keep track of the number of people that have die as a result of the infection.
 
         All arguments will be passed as command-line arguments when the file is run.
         HINT: Look in the if __name__ == "__main__" function at the bottom.
@@ -53,8 +49,7 @@ class Simulation(object):
     def _create_population(self, initial_infected):
         '''This method will create the initial population.
             Args:
-                initial_infected (int): The number of infected people that the simulation
-                will begin with.
+                initial_infected (int): The number of infected people that the simulation will begin with.
 
             Returns:
                 list: A list of Person objects.
@@ -81,8 +76,7 @@ class Simulation(object):
         pass
 
     def run(self):
-        ''' This method should run the simulation until all requirements for ending
-        the simulation are met.
+        ''' This method should run the simulation until all requirements for ending the simulation are met.
         '''
         # TODO: Finish this method.  To simplify the logic here, use the helper method
         # _simulation_should_continue() to tell us whether or not we should continue
@@ -95,8 +89,8 @@ class Simulation(object):
         should_continue = None
 
         while should_continue:
-        # TODO: for every iteration of this loop, call self.time_step() to compute another
-        # round of this simulation.
+        # TODO: for every iteration of this loop, call self.time_step() to compute another round of this simulation.
+        
         print('The simulation has ended after {time_step_counter} turns.'.format(time_step_counter))
         pass
 
@@ -105,8 +99,7 @@ class Simulation(object):
         in the simulation.
 
         This includes:
-            1. 100 total interactions with a randon person for each infected person
-                in the population
+            1. 100 total interactions with a randon person for each infected person in the population
             2. If the person is dead, grab another random person from the population.
                 Since we don't interact with dead people, this does not count as an interaction.
             3. Otherwise call simulation.interaction(person, random_person) and
@@ -116,8 +109,7 @@ class Simulation(object):
         pass
 
     def interaction(self, person, random_person):
-        '''This method should be called any time two living people are selected for an
-        interaction. It assumes that only living people are passed in as parameters.
+        '''This method should be called any time two living people are selected for an interaction. It assumes that only living people are passed in as parameters.
 
         Args:
             person1 (person): The initial infected person

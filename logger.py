@@ -11,8 +11,7 @@ class Logger(object):
         # full file name of the file that the logs will be written to.
         self.file_name = None
 
-    def write_metadata(self, pop_size, vacc_percentage, virus_name, mortality_rate,
-                       basic_repro_num):
+    def write_metadata(self, pop_size, vacc_percentage, virus_name, mortality_rate, basic_repro_num):
         '''
         The simulation class should use this method immediately to log the specific
         parameters of the simulation as the first line of the file.
