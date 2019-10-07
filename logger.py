@@ -44,12 +44,12 @@ class Logger(object):
 
         # for person:
         if random_person_vacc == True:
-            logger_params = f"{person._id} didn't infect {random_person._id} because they are vaccinated."
+            logger_params = f"{person._id} didn't infect {random_person._id} because they are vaccinated. \n"
         else:
             if random_person_sick == True:
-                logger_params = f"{person._id} didn't infect {random_person._id} because they are already sick."
+                logger_params = f"{person._id} didn't infect {random_person._id} because they are already sick. \n"
             else: 
-                logger_params = f"{person._id} infects {random_person._id}"
+                logger_params = f"{person._id} infects {random_person._id} \n"
 
         f = open(self.file_name, 'a')
         f.write(logger_params)
@@ -67,7 +67,15 @@ class Logger(object):
         # TODO: Finish this method. If the person survives, did_die_from_infection
         # should be False.  Otherwise, did_die_from_infection should be True.
         # Append the results of the infection to the logfile
-        pass
+        if did_die_from_infection == False:
+            log_infection_params = f"{person._id} survived infection. \n"
+        else:
+            log_infection_params = f"{person._id} died from infection. \n"
+
+        f = open(self.file_name, 'a')
+        f.write(log_infection_params)
+        f.close()
+        return log_infection_params
 
     def log_time_step(self, time_step_number):
         ''' STRETCH CHALLENGE DETAILS:
@@ -109,4 +117,11 @@ def test_add_interaction():
     # with open('log.txt') as f:
     #     log_output = f.readlines()
 
-    assert sick_person.log_interaction(person1, person2, False, True, False) == "1 didn't infect 2 because they are vaccinated."
+    assert sick_person.log_interaction(person1, person2, False, True, False) == "1 didn't infect 2 because they are vaccinated. \n"
+
+def test_infection_survive():
+    '''Tests log_infection_survival function'''
+    person1 = Person(1, True)
+    survivor = Logger('log.txt')
+
+    assert survivor.log_infection_survival(person1, False) == "1 survived infection. \n"
