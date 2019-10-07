@@ -1,17 +1,14 @@
+from virus import Virus
 import random
 random.seed(42)
-from virus import Virus
-
 
 class Person(object):
     ''' Person objects will populate the simulation. '''
 
     def __init__(self, _id, is_vaccinated, infection=None):
-        ''' We start out with is_alive = True, because we don't make vampires or zombies.
-        All other values will be set by the simulation when it makes each Person object.
+        ''' We start out with is_alive = True, because we don't make vampires or zombies. All other values will be set by the simulation when it makes each Person object.
 
-        If person is chosen to be infected when the population is created, the simulation
-        should instantiate a Virus object and set it as the value
+        If person is chosen to be infected when the population is created, the simulation should instantiate a Virus object and set it as the value
         self.infection. Otherwise, self.infection should be set to None.
         '''
         self._id = None  # int
@@ -30,10 +27,12 @@ class Person(object):
 
         # Note: random.random() produces a float between 0 and 1
         random_num = random.random()
-        if random_num > mortality_rate:
-            self.is_alive == True and self.is_vaccinated == True
+        if random_num > self.infection.mortality_rate:
+            self.is_alive = True 
+            self.is_vaccinated = True
         else:
-            self.is_alive == False and self.is_vaccinated == False
+            self.is_alive = False 
+            self.is_vaccinated = False
         return self.is_alive
 
 
@@ -54,9 +53,9 @@ def test_not_vacc_person_instantiation():
     # the values at each attribute
     # assert ...
     assert person._id == 2
-    assert person.is_alive is False
+    assert person.is_alive is True
     assert person.is_vaccinated is False
-    assert person.infection is not None
+    assert person.infection is None
 
 
 def test_sick_person_instantiation():
@@ -66,9 +65,10 @@ def test_sick_person_instantiation():
     person = Person(3, False, virus)
     # TODO: complete your own assert statements that test
     # the values at each attribute
-    # assert ...
-    pass
-
+    assert person._id == 3
+    assert person.is_alive is True
+    assert person.is_vaccinated is False
+    assert person.infection is not None
 
 def test_did_survive_infection():
     # TODO: Create a Virus object to give a Person object an infection
@@ -81,12 +81,9 @@ def test_did_survive_infection():
     # Check if the Person survived or not
     if survived:
         assert person.is_alive is True
-        # TODO: Write your own assert statements that test
-        # the values of each attribute for a Person who survived
-        # assert ...
+        assert person.is_vaccinated is True
+        assert person.infection is None
     else:
         assert person.is_alive is False
-        # TODO: Write your own assert statements that test
-        # the values of each attribute for a Person who did not survive
-        # assert ...
-        pass
+        assert person.is_vaccinated is False
+        assert person.infection is None
