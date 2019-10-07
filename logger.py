@@ -43,7 +43,7 @@ class Logger(object):
 
         # for person:
         if random_person_vacc == True:
-            logger_params = f"{person._id} didn't infect {random_person._id} because vaccinated."
+            logger_params = f"{person._id} didn't infect {random_person._id} because they are vaccinated."
         else:
             if random_person_sick == True:
                 logger_params = f"{person._id} didn't infect {random_person._id} because they are already sick."
@@ -107,4 +107,4 @@ def test_add_interaction():
     # with open('log.txt') as f:
     #     log_output = f.readlines()
 
-    assert sick_person.log_interaction(person1, person2, False, True, False) == "1 didn't infect 2 because vaccinated."
+    assert sick_person.log_interaction(person1, person2, False, True, False) == "1 didn't infect 2 because they are vaccinated."
