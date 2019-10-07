@@ -26,8 +26,7 @@ class Logger(object):
 
     def log_interaction(self, person, random_person, random_person_sick=None, random_person_vacc=None, did_infect=None):
         '''
-        The Simulation object should use this method to log every interaction
-        a sick person has during each time step.
+        The Simulation object should use this method to log every interaction a sick person has during each time step.
 
         The format of the log should be: "{person.ID} infects {random_person.ID} \n"
 
@@ -41,8 +40,7 @@ class Logger(object):
         pass
 
     def log_infection_survival(self, person, did_die_from_infection):
-        ''' The Simulation object uses this method to log the results of every
-        call of a Person object's .resolve_infection() method.
+        ''' The Simulation object uses this method to log the results of every call of a Person object's .resolve_infection() method.
 
         The format of the log should be:
             "{person.ID} died from infection\n" or "{person.ID} survived infection.\n"
