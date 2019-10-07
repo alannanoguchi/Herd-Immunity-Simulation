@@ -1,3 +1,5 @@
+from person import Person
+
 class Logger(object):
     ''' Utility class responsible for logging all interactions during the simulation. '''
 
@@ -37,7 +39,22 @@ class Logger(object):
         # represent all the possible edge cases. Use the values passed along with each person,
         # along with whether they are sick or vaccinated when they interact to determine
         # exactly what happened in the interaction and create a String, and write to your logfile.
-        pass
+
+
+        # for person:
+        if random_person_vacc == True:
+            logger_params = f"{person._id} didn't infect {random_person._id} because vaccinated."
+        else:
+            if random_person_sick == True:
+                logger_params = f"{person._id} didn't infect {random_person._id} because they are already sick."
+            else: 
+                logger_params = f"{person._id} infects {random_person._id}"
+
+        f = open(self.file_name, 'a')
+        f.write(logger_params)
+        f.close()
+
+        return logger_params
 
     def log_infection_survival(self, person, did_die_from_infection):
         ''' The Simulation object uses this method to log the results of every call of a Person object's .resolve_infection() method.
@@ -81,3 +98,13 @@ def test_logger():
         log_output = f.readline()
 
     assert sim1.write_metadata(100, 10, 'Dengue Fever', 5, 3) == log_output
+
+def test_add_interaction():
+    '''Tests log_interaction function'''
+    person1 = Person(1, False)
+    person2 = Person(2, True)
+    sick_person = Logger('log.txt')
+    # with open('log.txt') as f:
+    #     log_output = f.readlines()
+
+    assert sick_person.log_interaction(person1, person2, False, True, False) == "1 didn't infect 2 because vaccinated."
