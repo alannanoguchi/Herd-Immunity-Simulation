@@ -13,7 +13,7 @@ class Simulation(object):
     population that are vaccinated, the size of the population, and the amount of initially
     infected people in a population are all variables that can be set when the program is run.
     '''
-    def __init__(self, pop_size, vacc_percentage, initial_infected=1, virus):
+    def __init__(self, pop_size, vacc_percentage, initial_infected=1, virus=None):
         ''' Logger object logger records all events during the simulation.
         Population represents all Persons in the population.
         The next_person_id is the next available id for all created Persons,
@@ -47,7 +47,7 @@ class Simulation(object):
         self.vacc_percentage = vacc_percentage # float between 0 and 1
         self.total_dead = 0 # Int
         self.file_name = "{}_simulation_pop_{}_vp_{}_infected_{}.txt".format(
-            virus_name, population_size, vacc_percentage, initial_infected)
+            virus_name, pop_size, vacc_percentage, initial_infected)
         self.newly_infected = []
 
     def _create_population(self, initial_infected):
@@ -63,14 +63,33 @@ class Simulation(object):
         # TODO: Finish this method!  This method should be called when the simulation begins, to create the population that will be used. This method should return an array filled with Person objects that matches the specifications of the simulation (correct number of people in the population, correct percentage of people vaccinated, correct number of initially infected people).
 
         # Use the attributes created in the init method to create a population that has the correct intial vaccination percentage and initial infected.
-        healthy_pop = self.popsize - initial_infected
+        self.current_infected = self.initial_infected
+        self.total_infected = self.current_infected
 
-        while len(self.population) > healthy_pop:
+        while len(self.population) > self.pop_size:
+
+            healthy_pop = self.popsize - initial_infected
             total_vaccinated = healthy_pop * self.vacc_percentage
-            while self.next_person_id < total_vaccinated:
-                self.next_person_id += 1
-                person = Person(self.next_person_id, True, None)
-                self.population.append(person)
+            
+            vac_count = 0
+            if vac_count < total_vaccinated:
+                vaccinated = True
+                viral = None
+                vac_count += 1
+            else:
+                vaccinated = False
+                infected = 0
+                if infected < initial_infected:
+                    viral = self.virus
+                else:
+                    viral = None
+
+            self.next_person_id += 1
+            person = Person(self.next_person_id, vaccinated, viral)
+            self.population.append(person)
+
+        return self.population
+            
 
     def _simulation_should_continue(self):
         ''' The simulation should only end if the entire population is dead
