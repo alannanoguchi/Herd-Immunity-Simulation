@@ -96,10 +96,23 @@ class Simulation(object):
                 bool: True for simulation should continue, False if it should end.
         '''
         # TODO: Complete this helper method.  Returns a Boolean.
+        # immune = [person for person in self.population if person.is_vaccinated == True]
 
+<<<<<<< HEAD
         return self.current_infected > 0 and self.total_dead < self.pop_size
  
+=======
+        immune = []
+>>>>>>> b81ed0e4dbe1ae7099a07cfa3da424cc81d01758
 
+        for person in self.population:
+            if person.is_vaccinated == True:
+                immune.append(person)
+
+        if self.total_dead + len(immune) == self.population:
+            return False
+        else:
+            return True
 
     def run(self):
         ''' This method should run the simulation until all requirements for ending the simulation are met.
@@ -144,14 +157,23 @@ class Simulation(object):
                 random_person = random.choice(self.population)
                 while random_person.is_alive == False:
                     random_person = random.choice(self.population)
+<<<<<<< HEAD
+=======
+                    
+>>>>>>> b81ed0e4dbe1ae7099a07cfa3da424cc81d01758
                 self.interaction(person, random_person)
                 encounters += 1
+        
+                self._infect_newly_infected()
 
 
+<<<<<<< HEAD
         
         
         self._infect_newly_infected()
     
+=======
+>>>>>>> b81ed0e4dbe1ae7099a07cfa3da424cc81d01758
     def interaction(self, person, random_person):
         '''This method should be called any time two living people are selected for an interaction. It assumes that only living people are passed in as parameters.
 
