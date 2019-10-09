@@ -11,7 +11,7 @@ class Simulation(object):
 
     Simulates the spread of a virus through a given population.  The percentage of the population that are vaccinated, the size of the population, and the amount of initially infected people in a population are all variables that can be set when the program is run.
     '''
-    def __init__(self, pop_size, vacc_percentage, initial_infected=1, virus=None):
+    def __init__(self, pop_size, vacc_percentage, virus, initial_infected=1):
         ''' Logger object logger records all events during the simulation.
         Population represents all Persons in the population.
         The next_person_id is the next available id for all created Persons,
@@ -31,8 +31,7 @@ class Simulation(object):
         # TODO: Store each newly infected person's ID in newly_infected attribute.
         # At the end of each time step, call self._infect_newly_infected()
         # and then reset .newly_infected back to an empty list.
-        self.file_name = f"logs/{virus_name}_simulation_pop_{pop_size}_vp_{vacc_percentage}_infected_{initial_infected}.txt"
-        self.logger = Logger(self.file_name)
+        
         self.population = [] # List of Person objects
         self.pop_size = pop_size # Int
         self.next_person_id = 0 # Int
@@ -42,6 +41,8 @@ class Simulation(object):
         self.current_infected = initial_infected # Int
         self.vacc_percentage = vacc_percentage # float between 0 and 1
         self.total_dead = 0 # Int
+        self.file_name = f"logs/{virus.name}_simulation_pop_{pop_size}_vp_{vacc_percentage}_infected_{initial_infected}.txt"
+        self.logger = Logger(self.file_name)
 
         self.newly_infected = []
 

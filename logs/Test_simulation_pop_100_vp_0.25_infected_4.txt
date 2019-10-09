@@ -1,0 +1,2 @@
+Population | Total:100	Vaccinated Percentage: 0.25
+Virus | Name: Test	Mortality Rate: 0.25	Reproductive Rate: 0.25
