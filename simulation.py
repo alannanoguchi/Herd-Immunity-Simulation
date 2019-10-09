@@ -118,13 +118,24 @@ class Simulation(object):
         while should_continue:
         # TODO: for every iteration of this loop, call self.time_step() to compute another round of this simulation.
             self.time_step()
+            self._infect_newly_infected()
+
+            # Check if anyone died after interacting with 100 people
+            for person in self.population:
+                person.did_survive_infection()
+                if person.is_alive == False:
+                    self.total_dead += 1
+                else:
+                    person.is_vaccinated = True
+
+                self.logger.log_infection_survival(person, person.is_alive)
+
             time_step_counter += 1
             # self.logger.log_time_step(time_step_counter)
             self._simulation_should_continue()
         
         print (f'The simulation has ended after {time_step_counter} turns.')
         
-
     def time_step(self):
         ''' This method should contain all the logic for computing one time step in the simulation.
 
@@ -135,19 +146,18 @@ class Simulation(object):
             3. Otherwise call simulation.interaction(person, random_person) and increment interaction counter by 1.
             '''
         # TODO: Finish this method.
-        infected = [person for person in self.population if person.is_vaccinated == False]
-
-        for person in infected: 
-            encounters = 0
-            while encounters < 100:
-                random_person = random.choice(self.population)
-                while random_person.is_alive == False:
+        # infectable = [person for person in self.population if person.is_vaccinated == False]
+        for person in self.population:
+            if person.is_vaccinated == False:
+        # for person in infectable: 
+                encounters = 0
+                while encounters < 100:
                     random_person = random.choice(self.population)
-                self.interaction(person, random_person)
-                encounters += 1
-        
-        self._infect_newly_infected()
-    
+                    while random_person.is_alive == False:
+                        random_person = random.choice(self.population)
+                    self.interaction(person, random_person)
+                    encounters += 1
+
     def interaction(self, person, random_person):
         '''This method should be called any time two living people are selected for an interaction. It assumes that only living people are passed in as parameters.
 
@@ -193,6 +203,7 @@ class Simulation(object):
 
 if __name__ == "__main__":
     params = sys.argv[1:]
+    #  python3 simulation.py Ebola 0.25 0.70 1000 0.90 10
     virus_name = str(params[0])
     repro_rate = float(params[1])
     mortality_rate = float(params[2])
