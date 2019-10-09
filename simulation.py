@@ -97,8 +97,17 @@ class Simulation(object):
         '''
         # TODO: Complete this helper method.  Returns a Boolean.
 
+<<<<<<< HEAD
         # immune = [person for person in self.population if person.is_vaccinated == True]
         immune = []
+=======
+<<<<<<< HEAD
+        return self.current_infected > 0 and self.total_dead < self.pop_size
+=======
+        return self.vacc_percentage==1 and self.total_dead == self.pop_size
+>>>>>>> 2d4329233cf8b00f25f8691b34d55ee76be67f4e
+ 
+>>>>>>> b382d8cfbf681b806c519433b0388f20af6eff76
 
         for person in self.population:
             if person.is_vaccinated == True:
@@ -163,10 +172,29 @@ class Simulation(object):
                 random_person = random.choice(self.population)
                 while random_person.is_alive == False:
                     random_person = random.choice(self.population)
+<<<<<<< HEAD
                     
                 self.interaction(person, random_person)
                 encounters += 1
+=======
+<<<<<<< HEAD
+                self.interaction(person, random_person)
+                encounters += 1
 
+
+
+        
+        
+        self._infect_newly_infected()
+    
+=======
+                    while random_person.is_alive == False:
+                        random_person = random.choice(self.population)
+                    self.interaction(person, random_person)
+                    encounters += 1
+>>>>>>> b382d8cfbf681b806c519433b0388f20af6eff76
+
+>>>>>>> 2d4329233cf8b00f25f8691b34d55ee76be67f4e
     def interaction(self, person, random_person):
         '''This method should be called any time two living people are selected for an interaction. It assumes that only living people are passed in as parameters.
 
