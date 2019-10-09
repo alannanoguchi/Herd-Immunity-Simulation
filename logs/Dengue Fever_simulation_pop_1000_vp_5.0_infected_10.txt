@@ -1,0 +1,2 @@
+Population | Total:1000	Vaccinated Percentage: 5.0
+Virus | Name: Dengue Fever	Mortality Rate: 3.0	Reproductive Rate: 5.0

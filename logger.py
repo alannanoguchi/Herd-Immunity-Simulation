@@ -4,8 +4,7 @@ class Logger(object):
     ''' Utility class responsible for logging all interactions during the simulation. '''
 
     def __init__(self, file_name):
-        # TODO:  Finish this initialization method. The file_name passed should be the
-        # full file name of the file that the logs will be written to.
+        # TODO:  Finish this initialization method. The file_name passed should be the full file name of the file that the logs will be written to.
         self.file_name = file_name
 
     def write_metadata(self, pop_size, vacc_percentage, virus_name, mortality_rate, basic_repro_num):
@@ -18,7 +17,7 @@ class Logger(object):
         # the 'a' mode to append a new log to the end, since 'w' overwrites the file.
         # NOTE: Make sure to end every line with a '/n' character to ensure that each
         # event logged ends up on a separate line!
-        initial_params = f"{pop_size}\t{vacc_percentage}\t{virus_name}\t{mortality_rate}\t{basic_repro_num}\n"
+        initial_params = f"Population | Total:{pop_size}\tVaccinated Percentage: {vacc_percentage}\nVirus | Name: {virus_name}\tMortality Rate: {mortality_rate}\tReproductive Rate: {basic_repro_num}\n"
 
         f = open(self.file_name, 'w')
         f.write(initial_params)
@@ -35,11 +34,7 @@ class Logger(object):
         or the other edge cases:
             "{person.ID} didn't infect {random_person.ID} because {'vaccinated' or 'already sick'} \n"
         '''
-        # TODO: Finish this method. Think about how the booleans passed (or not passed)
-        # represent all the possible edge cases. Use the values passed along with each person,
-        # along with whether they are sick or vaccinated when they interact to determine
-        # exactly what happened in the interaction and create a String, and write to your logfile.
-
+        # TODO: Finish this method. Think about how the booleans passed (or not passed) represent all the possible edge cases. Use the values passed along with each person, along with whether they are sick or vaccinated when they interact to determine exactly what happened in the interaction and create a String, and write to your logfile.
 
         # for person:
         if random_person_vacc == True:
@@ -123,3 +118,8 @@ def test_infection_survive():
     survivor = Logger('log.txt')
 
     assert survivor.log_infection_survival(person1, False) == "1 survived infection. \n"
+
+if __name__ == '__main__':
+    test_logger()
+    test_add_interaction()
+    test_infection_survive()
