@@ -98,12 +98,7 @@ class Simulation(object):
         # TODO: Complete this helper method.  Returns a Boolean.
         # immune = [person for person in self.population if person.is_vaccinated == True]
 
-<<<<<<< HEAD
-        return self.current_infected > 0 and self.total_dead < self.pop_size
- 
-=======
         immune = []
->>>>>>> b81ed0e4dbe1ae7099a07cfa3da424cc81d01758
 
         for person in self.population:
             if person.is_vaccinated == True:
