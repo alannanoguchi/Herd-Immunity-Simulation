@@ -97,7 +97,7 @@ class Simulation(object):
         '''
         # TODO: Complete this helper method.  Returns a Boolean.
 
-        return self.vacc_percentage==1 and self.total_dead == self.population_size
+        return self.current_infected > 0 and self.total_dead < self.pop_size
  
 
 
@@ -146,6 +146,10 @@ class Simulation(object):
                     random_person = random.choice(self.population)
                 self.interaction(person, random_person)
                 encounters += 1
+
+
+
+        
         
         self._infect_newly_infected()
     
