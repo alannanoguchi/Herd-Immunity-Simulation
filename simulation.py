@@ -96,12 +96,9 @@ class Simulation(object):
                 bool: True for simulation should continue, False if it should end.
         '''
         # TODO: Complete this helper method.  Returns a Boolean.
-        infected = [each for each in self.population if each.is_vaccinated == False or each.is_alive == False]
 
-        if len(infected) == len(self.population):
-            return False
-        else:
-            return True
+        return self.vacc_percentage==1 and self.total_dead == self.pop_size
+ 
 
 
     def run(self):
@@ -146,12 +143,17 @@ class Simulation(object):
             3. Otherwise call simulation.interaction(person, random_person) and increment interaction counter by 1.
             '''
         # TODO: Finish this method.
-        # infectable = [person for person in self.population if person.is_vaccinated == False]
+        # infected = [person for person in self.population if self.current_infected == False]
+        infected = []
         for person in self.population:
-            if person.is_vaccinated == False:
-        # for person in infectable: 
-                encounters = 0
-                while encounters < 100:
+            if self.current_infected == False:
+                infected.append(person)
+
+        for person in infected: 
+            encounters = 0
+            while encounters < 100:
+                random_person = random.choice(self.population)
+                while random_person.is_alive == False:
                     random_person = random.choice(self.population)
                     while random_person.is_alive == False:
                         random_person = random.choice(self.population)
@@ -198,7 +200,8 @@ class Simulation(object):
             self.population[person].infection = self.virus.name
             self.total_infected += 1
         
-        self.newly_infected.clear()
+        # self.newly_infected.clear()
+        self.newly_infected = []
 
 
 if __name__ == "__main__":
@@ -218,5 +221,7 @@ if __name__ == "__main__":
 
     virus = Virus(virus_name, repro_rate, mortality_rate)
     sim = Simulation(pop_size, vacc_percentage, initial_infected, virus)
+
+    #  python3 simulation.py 'Dengue Fever' 0.05 0.5 10000 .75 10
 
     sim.run()
