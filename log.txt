@@ -1,3 +1,4 @@
-100	10	Dengue Fever	5	3
+Population | Total:100	Vaccinated Percentage: 10
+Virus | Name: Dengue Fever	Mortality Rate: 5	Reproductive Rate: 3
 1 didn't infect 2 because they are vaccinated. 
 1 survived infection. 
