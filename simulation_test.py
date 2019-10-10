@@ -9,7 +9,7 @@ import pytest
 #Test constructor
 def test_constructor():
     v = Virus("Test", .25, .25)
-    sim = Simulation(100, .25, v,initial_infected=4,)
+    sim = Simulation(100, .25, v,initial_infected=4)
     assert sim.next_person_id == 0
     assert sim.total_infected == 4
     assert sim.vacc_percentage == .25
@@ -23,7 +23,7 @@ def test_constructor():
 #Test create population 
 def test_create_population():
     v = Virus("Test", .25, .25)
-    sim = Simulation(100, .25, v, initial_infected=4)
+    sim = Simulation(100, .25, v, 4)
     #vaccinated count
     v_count = 0
     #infected count
@@ -44,4 +44,4 @@ def test_create_population():
     #verify correct number of infected and vaccinated people
     assert v_count == 0
     assert i_count == 0
-    assert len(sim.population) == 100
+    assert sim.population == 100

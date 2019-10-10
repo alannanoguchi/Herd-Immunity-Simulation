@@ -71,7 +71,7 @@ class Simulation(object):
             vac_count = 0
             infected = 0
             if vac_count < total_vaccinated:
-                person = Person(self.next_person_id, True, True, None)
+                person = Person(self.next_person_id, True, None)
                 vac_count += 1
             elif infected < initial_infected:
                 person = Person(self.next_person_id, False, self.virus.name)
