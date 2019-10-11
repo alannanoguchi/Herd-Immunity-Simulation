@@ -1,4 +1,6 @@
 from person import Person
+from virus import Virus
+import os
 
 class Logger(object):
     ''' Utility class responsible for logging all interactions during the simulation. '''
@@ -35,32 +37,15 @@ class Logger(object):
             "{person.ID} didn't infect {random_person.ID} because {'vaccinated' or 'already sick'} \n"
         '''
         # TODO: Finish this method. Think about how the booleans passed (or not passed) represent all the possible edge cases. Use the values passed along with each person, along with whether they are sick or vaccinated when they interact to determine exactly what happened in the interaction and create a String, and write to your logfile.
-
-        if random_person_vacc == True:
-            logger_params = f"{person._id} didn't infect {random_person._id} because they are vaccinated. \n"
-        else:
-            if random_person_sick == True:
-                logger_params = f"{person._id} didn't infect {random_person._id} because they are already sick. \n"
-            else: 
-                logger_params = f"{person._id} infects {random_person._id} \n"
-
-        f = open(self.file_name, 'a')
-        f.write(logger_params)
-        f.close()
-
-        # return logger_params
-        # with self.open_file('a') as data:
-        #     if did_infect:
-        #         data.write(f'{person._id} infects {random_person._id}')
-        #     else:
-        #         data.write(f'{person._id} didn\'t infect {random_person._id}')
-
-        #         if random_person_vacc:
-        #             data.write(' because vaccinated')
-        #         elif random_person_sick:
-        #             data.write(' because already sick')
-
-        #     data.write('\n')
+        with open(self.file_name, "a") as f:
+            if did_infect == True:
+                f.write(f"{person._id} infects {random_person._id} \n")
+            elif did_infect == True and random_person_vacc == True:
+                f.write(f"{person._id} didn't infect {random_person._id} because they are vaccinated. \n")
+            elif random_person_sick == True:
+                f.write(f"{person._id} didn't infect {random_person._id} because they are already sick. \n")
+            else:
+                f.write(f"{person._id} didn't infect {random_person._id} because their immune defense resisted.\n")
 
     def log_infection_survival(self, person, did_die_from_infection):
         ''' The Simulation object uses this method to log the results of every call of a Person object's .resolve_infection() method.
@@ -71,15 +56,11 @@ class Logger(object):
         # TODO: Finish this method. If the person survives, did_die_from_infection
         # should be False.  Otherwise, did_die_from_infection should be True.
         # Append the results of the infection to the logfile
-        if did_die_from_infection == False:
-            log_infection_params = f"{person._id} survived infection. \n"
-        else:
-            log_infection_params = f"{person._id} died from infection. \n"
-
-        f = open(self.file_name, 'a')
-        f.write(log_infection_params)
-        f.close()
-        return log_infection_params
+        with open(self.file_name, 'a') as f:
+            if did_die_from_infection == False:
+                f.write(f"{person._id} survived infection.\n")
+            elif did_die_from_infection == True:
+                f.write(f"{person._id} died from infection.\n")
 
     def log_time_step(self, time_step_number):
         ''' STRETCH CHALLENGE DETAILS:
@@ -99,4 +80,5 @@ class Logger(object):
         # TODO: Finish this method. This method should log when a time step ends, and a
         # new one begins.
         # NOTE: Here is an opportunity for a stretch challenge!
-        pass
+        with open(self.file_name, 'a') as f:
+            f.write(f"Time step {time_step_number} ended, beginning {time_step_number + 1}\n")

@@ -27,10 +27,11 @@ class Person(object):
 
         # Note: random.random() produces a float between 0 and 1
         random_num = random.random()
-        if random_num > self.infection.mortality_rate:
-            self.is_alive = True 
-            self.is_vaccinated = True
-        else:
-            self.is_alive = False 
-            self.is_vaccinated = False
+        if self.infection != None:
+            if random_num > self.infection.mortality_rate:
+                self.is_alive = True 
+                self.is_vaccinated = True
+            else:
+                self.is_alive = False 
+                self.is_vaccinated = False
         return self.is_alive
