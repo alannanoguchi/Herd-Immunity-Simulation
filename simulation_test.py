@@ -9,8 +9,7 @@ import pytest
 #Test constructor
 def test_constructor():
     v = Virus("Test", .25, .25)
-    sim = Simulation(100, .25, v,initial_infected=4)
-    assert sim.next_person_id == 0
+    sim = Simulation(100, .25, v, initial_infected=4)
     assert sim.total_infected == 4
     assert sim.vacc_percentage == .25
     assert sim.virus == v
@@ -20,10 +19,11 @@ def test_constructor():
     assert sim.file_name == "logs/Test_simulation_pop_100_vp_0.25_infected_4.txt"
     assert sim.newly_infected == []
 
+
 #Test create population 
 def test_create_population():
     v = Virus("Test", .25, .25)
-    sim = Simulation(100, .25, v, 4)
+    sim = Simulation(100, .25, v, initial_infected=4)
     #vaccinated count
     v_count = 0
     #infected count
@@ -42,6 +42,36 @@ def test_create_population():
             i_count += 1
 
     #verify correct number of infected and vaccinated people
-    assert v_count == 0
-    assert i_count == 0
-    assert sim.population == 100
+    assert v_count == 25
+    assert i_count == 4
+    assert sim.next_person_id == 100
+    assert len(sim.population) == 100
+
+def test_simulation_should_continue():
+    v = Virus("Test", .25, .25)
+    sim = Simulation(100, .25, v, initial_infected=4)
+    sim1 = Simulation(100, .25, v, initial_infected=4)
+    sim2 = Simulation(100, .25, v, initial_infected=4)
+
+    #Check if all are dead
+    for person in sim.population:
+        person.is_alive = False
+
+    assert sim._simulation_should_continue() == False
+
+    #make everyone vaccinated
+    for person in sim1.population:
+        person.is_vaccinated = True
+
+    assert sim1._simulation_should_continue() == False
+
+    #check that all survivors are vaccinated
+    for person in sim2.population:
+        person.is_vaccinated = True
+
+    #kill off 3 people
+    sim2.population[0].is_alive = False
+    sim2.population[90].is_alive = False
+    sim2.population[86].is_alive = False
+    sim2.total_dead = 3
+    assert sim2._simulation_should_continue() == False
