@@ -36,7 +36,6 @@ class Logger(object):
         '''
         # TODO: Finish this method. Think about how the booleans passed (or not passed) represent all the possible edge cases. Use the values passed along with each person, along with whether they are sick or vaccinated when they interact to determine exactly what happened in the interaction and create a String, and write to your logfile.
 
-        # for person:
         if random_person_vacc == True:
             logger_params = f"{person._id} didn't infect {random_person._id} because they are vaccinated. \n"
         else:
@@ -49,7 +48,19 @@ class Logger(object):
         f.write(logger_params)
         f.close()
 
-        return logger_params
+        # return logger_params
+        # with self.open_file('a') as data:
+        #     if did_infect:
+        #         data.write(f'{person._id} infects {random_person._id}')
+        #     else:
+        #         data.write(f'{person._id} didn\'t infect {random_person._id}')
+
+        #         if random_person_vacc:
+        #             data.write(' because vaccinated')
+        #         elif random_person_sick:
+        #             data.write(' because already sick')
+
+        #     data.write('\n')
 
     def log_infection_survival(self, person, did_die_from_infection):
         ''' The Simulation object uses this method to log the results of every call of a Person object's .resolve_infection() method.
@@ -89,9 +100,3 @@ class Logger(object):
         # new one begins.
         # NOTE: Here is an opportunity for a stretch challenge!
         pass
-
-
-if __name__ == '__main__':
-    test_logger()
-    test_add_interaction()
-    test_infection_survive()
