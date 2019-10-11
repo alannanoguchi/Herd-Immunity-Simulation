@@ -46,6 +46,7 @@ class Simulation(object):
         self.logger = Logger(self.file_name)
 
         self.newly_infected = []
+        self.vaccinated_win = int(0)
 
     def _create_population(self, initial_infected):
         '''This method will create the initial population.
@@ -121,8 +122,10 @@ class Simulation(object):
             self.logger.log_time_step(time_step_counter)
             should_continue = self._simulation_should_continue()
         
-        print(f"{self.total_dead} people have died from infection.\n")
-        print(f"Entire population is either dead or vaccinated after {time_step_counter} timesteps.")       
+        self.logger.log_final_stats(self.total_dead, self.total_infected, self.vaccinated_win)
+        print(f"\nTotal Deaths: {self.total_dead}\n Total Infected: {self.total_infected}\nSaved By Vaccination: {self.vaccinated_win}")
+        print(f"Entire population is either dead or vaccinated after {time_step_counter} timesteps.")
+
 
     def time_step(self):
         ''' This method should contain all the logic for computing one time step in the simulation.
@@ -189,6 +192,7 @@ class Simulation(object):
         # TODO: Call logger method during this method.
         if random_person.is_vaccinated:
             self.logger.log_interaction(person, random_person, False, True, False)
+            self.vaccinated_win += 1
         elif random_person.infection is self.virus:
             self.logger.log_interaction(person, random_person, True, False, False)
         else:

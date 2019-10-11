@@ -82,3 +82,7 @@ class Logger(object):
         # NOTE: Here is an opportunity for a stretch challenge!
         with open(self.file_name, 'a') as f:
             f.write(f"Time step {time_step_number} ended, beginning {time_step_number + 1}\n")
+    
+    def log_final_stats(self, total_death, total_infected, vaccinated_win):
+        with open(self.file_name, 'a') as f:
+            f.write(f"\nTotal Deaths: {total_death}\n Total Infected: {total_infected}\nSaved By Vaccination: {vaccinated_win}")
